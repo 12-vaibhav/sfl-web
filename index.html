@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School for Life | UPES Dehradun</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- GSAP Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    colors: {
+                        upes: {
+                            blue: '#00205B',
+                            gold: '#FFC72C',
+                            cyan: '#00A3E0',
+                            dark: '#07090E',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #07090E;
+            color: #E2E8F0;
+            overflow-x: hidden;
+        }
+
+        .nav-glass {
+            background: rgba(7, 9, 14, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glow-bg {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .tilt-card {
+            transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .tilt-card:hover {
+            box-shadow: 0 25px 50px -12px rgba(0, 163, 224, 0.25);
+        }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased relative">
+
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="glow-bg w-[500px] h-[500px] bg-sky-600 top-[-100px] left-[-100px]"></div>
+    <div class="glow-bg w-[450px] h-[450px] bg-amber-500 top-[35%] right-[-100px]"></div>
+    <div class="glow-bg w-[600px] h-[600px] bg-blue-700 bottom-[5%] left-[15%]"></div>
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="fixed top-0 left-0 w-full nav-glass z-50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            
+            <a href="#hero" class="smooth-scroll flex items-center gap-2">
+                <span class="bg-gradient-to-r from-amber-400 via-sky-400 to-blue-400 text-transparent bg-clip-text text-2xl font-extrabold tracking-tight">
+                    SFL <span class="text-white text-base font-light">| UPES</span>
+                </span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+                <a href="#hero" class="smooth-scroll hover:text-amber-400 transition-colors">Vision</a>
+                <a href="#pathways" class="smooth-scroll hover:text-amber-400 transition-colors">Pathways</a>
+                <a href="#projects" class="smooth-scroll hover:text-amber-400 transition-colors">Flagship Projects</a>
+                <a href="#impact" class="smooth-scroll hover:text-amber-400 transition-colors">Impact & Stories</a>
+                
+                <a href="https://www.upes.ac.in/school-for-life" target="_blank" rel="noopener noreferrer" 
+                   class="flex items-center gap-2 border border-sky-500/30 text-sky-400 px-4 py-1.5 rounded-full hover:bg-sky-500/10 transition-all text-xs uppercase tracking-wider">
+                    SFL Portal <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                </a>
+            </nav>
+
+            <a href="https://www.upes.ac.in/admissions" target="_blank" rel="noopener noreferrer" 
+               class="bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-bold px-5 py-2.5 rounded-full hover:shadow-lg hover:shadow-amber-500/20 transition-all transform hover:scale-105 text-sm">
+                Apply Now
+            </a>
+        </div>
+    </header>
+
+    <main class="relative z-10 pt-20">
+
+        <!-- HERO & METRICS -->
+        <section id="hero" class="min-h-screen flex items-center px-6 py-20 relative">
+            <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center">
+                
+                <div class="space-y-6 hero-text">
+                    <span class="inline-block border border-amber-400/30 bg-amber-400/10 text-amber-400 text-xs font-semibold px-4 py-1.5 rounded-full uppercase tracking-widest">
+                        School for Life • UPES
+                    </span>
+                    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight text-white">
+                        Shaping Mindsets for <br>
+                        <span class="bg-gradient-to-r from-amber-400 via-sky-400 to-blue-500 text-transparent bg-clip-text">
+                            Real-World Leadership
+                        </span>
+                    </h1>
+                    <p class="text-gray-400 text-base sm:text-lg leading-relaxed max-w-xl">
+                        School for Life equips every UPES student with essential 21st-century capabilities—blending life skills, ethics, critical thinking, and design inquiry alongside their core academic degrees.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="#pathways" class="smooth-scroll bg-sky-500 hover:bg-sky-600 text-white px-7 py-3 rounded-full font-semibold transition-all shadow-lg shadow-sky-500/25">
+                            Explore Curriculum
+                        </a>
+                        <a href="#projects" class="smooth-scroll border border-white/20 hover:border-white/50 text-white px-7 py-3 rounded-full font-semibold transition-all flex items-center gap-2">
+                            View Flagship Projects <i class="fa-solid fa-arrow-down text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="p-8 rounded-3xl bg-slate-900/70 border border-white/10 backdrop-blur-xl relative shadow-2xl">
+                        <div class="grid grid-cols-2 gap-6 text-center">
+                            <div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+                                <h3 class="text-4xl font-extrabold text-amber-400 counter" data-target="100">0</h3>
+                                <p class="text-xs text-gray-400 mt-2 uppercase tracking-wider font-semibold">% Student Engagement</p>
+                            </div>
+                            <div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+                                <h3 class="text-4xl font-extrabold text-sky-400 counter" data-target="21">0</h3>
+                                <p class="text-xs text-gray-400 mt-2 uppercase tracking-wider font-semibold">Century Competencies</p>
+                            </div>
+                            <div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+                                <h3 class="text-4xl font-extrabold text-sky-400 counter" data-target="50">0</h3>
+                                <p class="text-xs text-gray-400 mt-2 uppercase tracking-wider font-semibold">+ Exploratory Electives</p>
+                            </div>
+                            <div class="p-6 rounded-2xl bg-white/5 border border-white/5">
+                                <h3 class="text-4xl font-extrabold text-amber-400 counter" data-target="1">0</h3>
+                                <p class="text-xs text-gray-400 mt-2 uppercase tracking-wider font-semibold">UNESCO SDG Featured</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PATHWAYS -->
+        <section id="pathways" class="py-24 px-6 border-t border-white/5">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-16 section-header">
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-4">Core Educational Pathways</h2>
+                    <p class="text-gray-400">A holistic ecosystem divided into specialized learning tracks designed to cultivate personal resilience.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="tilt-card p-8 rounded-3xl bg-slate-900/80 border border-white/10 flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-amber-400/10 text-amber-400 flex items-center justify-center text-2xl mb-6 group-hover:bg-amber-400 group-hover:text-slate-950 transition-colors">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Life Skills & Ethics</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">Focuses on self-awareness, communication mastery, emotional intelligence, critical reasoning, and ethical decision-making.</p>
+                        </div>
+                        <a href="https://www.upes.ac.in/school-for-life" target="_blank" class="text-amber-400 text-sm font-semibold flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                            Explore Syllabus <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+
+                    <div class="tilt-card p-8 rounded-3xl bg-slate-900/80 border border-white/10 flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-sky-400/10 text-sky-400 flex items-center justify-center text-2xl mb-6 group-hover:bg-sky-400 group-hover:text-slate-950 transition-colors">
+                                <i class="fa-solid fa-leaf"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Sustainability & Future</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">Hands-on understanding of climate change, eco-responsibility, global development goals, and sustainable innovation.</p>
+                        </div>
+                        <a href="https://www.upes.ac.in/school-for-life" target="_blank" class="text-sky-400 text-sm font-semibold flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                            View Modules <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+
+                    <div class="tilt-card p-8 rounded-3xl bg-slate-900/80 border border-white/10 flex flex-col justify-between group">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-indigo-400/10 text-indigo-400 flex items-center justify-center text-2xl mb-6 group-hover:bg-indigo-400 group-hover:text-slate-950 transition-colors">
+                                <i class="fa-solid fa-hands-holding-circle"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-3">Exploratory Learning</h3>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">Broadening perspectives through multi-disciplinary electives in sports, performing arts, design thinking, and social service.</p>
+                        </div>
+                        <a href="https://www.upes.ac.in/school-for-life" target="_blank" class="text-indigo-400 text-sm font-semibold flex items-center gap-2 group-hover:translate-x-1 transition-transform">
+                            Discover Electives <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SFL FLAGSHIP PROJECTS (GROW, SPEAK, HAPPINESS) -->
+        <section id="projects" class="py-24 px-6 border-t border-white/5 bg-slate-950/40">
+            <div class="max-w-7xl mx-auto">
+                
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                    <div>
+                        <span class="text-amber-400 font-bold text-xs uppercase tracking-widest">Experiential Initiatives</span>
+                        <h2 class="text-3xl sm:text-5xl font-extrabold text-white mt-2">SFL Projects in Brief</h2>
+                    </div>
+
+                    <!-- Category Filter Buttons -->
+                    <div class="flex flex-wrap gap-2 text-xs font-semibold">
+                        <button onclick="filterProjects('all')" class="project-btn active bg-amber-400 text-slate-950 px-4 py-2 rounded-full transition-all">All Initiatives</button>
+                        <button onclick="filterProjects('empowerment')" class="project-btn border border-white/10 text-gray-300 hover:border-amber-400 px-4 py-2 rounded-full transition-all">Empowerment</button>
+                        <button onclick="filterProjects('communication')" class="project-btn border border-white/10 text-gray-300 hover:border-amber-400 px-4 py-2 rounded-full transition-all">Communication</button>
+                        <button onclick="filterProjects('community')" class="project-btn border border-white/10 text-gray-300 hover:border-amber-400 px-4 py-2 rounded-full transition-all">Community & Joy</button>
+                    </div>
+                </div>
+
+                <!-- Grid of Flagship Projects -->
+                <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- PROJECT GROW -->
+                    <div class="project-card empowerment tilt-card p-6 rounded-3xl bg-slate-900/80 border border-white/10 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="bg-amber-400/10 text-amber-400 text-[10px] uppercase font-bold px-3 py-1 rounded-full border border-amber-400/20">Staff Empowerment</span>
+                                <span class="text-gray-500 text-xs">16 Mar – 6 May 2026</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Project GROW</h3>
+                            <p class="text-gray-400 text-xs leading-relaxed mb-4">
+                                Dedicated to fostering English communication, confidence, and lifelong learning among female housekeeping staff at UPES.
+                            </p>
+                            <div class="text-[11px] text-gray-400 space-y-1 mb-4 bg-white/5 p-3 rounded-xl">
+                                <p><strong class="text-white">Leads:</strong> Kashvi Kedia & Alaina Waris</p>
+                                <p><strong class="text-white">Faculty Mentors:</strong> Rashika Gokula, Vipin Chauhan, Surya Singh</p>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+                            <span class="text-xs text-amber-400 font-semibold"><i class="fa-solid fa-users mr-1"></i> 30 Housekeeping Staff</span>
+                            <button onclick="openModal(
+                                'Project GROW', 
+                                'Project GROW was an 8-week flagship initiative dedicated to empowering female housekeeping staff at UPES through interactive, activity-based English sessions. Conducted by SFL Ambassadors, the program focused on conversational practice, role-plays, vocabulary-building games, and practical communication scenarios to build lasting confidence.', 
+                                'Staff Empowerment',
+                                '30 Female Staff Members Impacted',
+                                'Kashvi Kedia & Alaina Waris',
+                                'Rashika Gokula, Vipin Chauhan, Surya Singh'
+                            )" 
+                            class="text-xs text-white hover:text-amber-400 font-semibold flex items-center gap-1">
+                                Read Brief <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- PROJECT SPEAK -->
+                    <div class="project-card communication tilt-card p-6 rounded-3xl bg-slate-900/80 border border-white/10 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="bg-sky-400/10 text-sky-400 text-[10px] uppercase font-bold px-3 py-1 rounded-full border border-sky-400/20">Student Skill Building</span>
+                                <span class="text-gray-500 text-xs">Nov 2025 – Present</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Project SPEAK</h3>
+                            <p class="text-gray-400 text-xs leading-relaxed mb-4">
+                                Designed to strengthen English communication, grammar, and self-expression for university students navigating academic and professional settings.
+                            </p>
+                            <div class="text-[11px] text-gray-400 space-y-1 mb-4 bg-white/5 p-3 rounded-xl">
+                                <p><strong class="text-white">Leads:</strong> Pritha Agarwal & Manas</p>
+                                <p><strong class="text-white">Faculty Mentor:</strong> Vipin Chauhan (Offline by Rakshita Gokula)</p>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+                            <span class="text-xs text-sky-400 font-semibold"><i class="fa-solid fa-graduation-cap mr-1"></i> 60–70 Students</span>
+                            <button onclick="openModal(
+                                'Project SPEAK', 
+                                'Project SPEAK supports second-year and third-year university students in mastering spoken English and grammar while overcoming hesitation. Through a hybrid mix of offline and online interactive sessions, students participate in active speaking practice and confidence-building exercises tailored to academic and career growth.', 
+                                'Student Skill Building',
+                                '60–70 University Students Engaged',
+                                'Pritha Agarwal (Lead) & Manas (Co-lead)',
+                                'Vipin Chauhan (Mentor) & Rakshita Gokula'
+                            )" 
+                            class="text-xs text-white hover:text-amber-400 font-semibold flex items-center gap-1">
+                                Read Brief <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- PROJECT HAPPINESS -->
+                    <div class="project-card community tilt-card p-6 rounded-3xl bg-slate-900/80 border border-white/10 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="bg-emerald-400/10 text-emerald-400 text-[10px] uppercase font-bold px-3 py-1 rounded-full border border-emerald-400/20">Community Outreach</span>
+                                <span class="text-gray-500 text-xs">Continuous Initiative</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">Project Happiness</h3>
+                            <p class="text-gray-400 text-xs leading-relaxed mb-4">
+                                Built on the belief that happiness grows when shared—bringing interactive sessions, celebrations, and joy to children in NGOs and government schools.
+                            </p>
+                            <div class="text-[11px] text-gray-400 space-y-1 mb-4 bg-white/5 p-3 rounded-xl">
+                                <p><strong class="text-white">Driven By:</strong> SFL Ambassadors & Student Volunteers</p>
+                                <p><strong class="text-white">Scope:</strong> Regional NGOs & Government Schools</p>
+                            </div>
+                        </div>
+                        <div class="pt-4 border-t border-white/5 flex items-center justify-between">
+                            <span class="text-xs text-emerald-400 font-semibold"><i class="fa-solid fa-heart mr-1"></i> Multi-School Impact</span>
+                            <button onclick="openModal(
+                                'Project Happiness', 
+                                'As part of this continuous SFL initiative, ambassadors regularly visit local NGOs and government schools. Through fun activities, interactive learning, celebrations, and community engagement, the project creates meaningful bonds, brings smiles to children, and instills the fundamental value of giving back to society.', 
+                                'Community Outreach',
+                                'Widespread Youth & Community Reach',
+                                'SFL Ambassadors',
+                                'School for Life Faculty Guidance'
+                            )" 
+                            class="text-xs text-white hover:text-amber-400 font-semibold flex items-center gap-1">
+                                Read Brief <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- STUDENT IMPACT & STORIES -->
+        <section id="impact" class="py-24 px-6 border-t border-white/5">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    
+                    <div class="space-y-6 impact-content">
+                        <span class="text-sky-400 font-bold text-xs uppercase tracking-widest">Global Recognition</span>
+                        <h2 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight">
+                            Building Confidence Beyond Classrooms
+                        </h2>
+                        <p class="text-gray-400 leading-relaxed">
+                            Through signature courses such as "Living Conversations"—featured by the UNESCO SDG 4 Knowledge Hub—and student-driven projects like GROW, SPEAK, and Happiness, SFL converts learning into positive societal impact.
+                        </p>
+                        
+                        <div class="space-y-4 pt-2">
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-900/60 border border-white/5">
+                                <i class="fa-solid fa-globe text-amber-400 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-white">Interdisciplinary Exposure</h4>
+                                    <p class="text-gray-400 text-xs mt-1">Students from engineering, law, business, and design collaborate on shared social challenges.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-slate-900/60 border border-white/5">
+                                <i class="fa-solid fa-lightbulb text-sky-400 text-xl mt-1"></i>
+                                <div>
+                                    <h4 class="font-bold text-white">Experiential Leadership</h4>
+                                    <p class="text-gray-400 text-xs mt-1">Practical projects, field visits, and interactive simulations that build real resilience.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-8 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-950 border border-white/10 relative impact-card shadow-2xl">
+                        <div class="space-y-6">
+                            <div class="inline-block p-3 rounded-2xl bg-amber-400/10 text-amber-400">
+                                <i class="fa-solid fa-quote-left text-2xl"></i>
+                            </div>
+                            <p class="text-gray-300 italic text-lg leading-relaxed">
+                                "Participating as an SFL Ambassador gave me the opportunity to lead sessions for Project GROW. Teaching English to our campus housekeeping staff transformed my leadership skills."
+                            </p>
+                            <div class="pt-6 border-t border-white/10 flex items-center justify-between">
+                                <div>
+                                    <h5 class="font-bold text-white">SFL Ambassador</h5>
+                                    <p class="text-xs text-gray-500">UPES Student Lead</p>
+                                </div>
+                                <a href="https://www.upes.ac.in" target="_blank" class="text-xs text-sky-400 font-semibold hover:underline">
+                                    More Stories <i class="fa-solid fa-arrow-right ml-1 text-[10px]"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PROJECT BRIEF MODAL OVERLAY -->
+    <div id="modal-overlay" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-6">
+        <div class="bg-slate-900 border border-white/10 max-w-lg w-full rounded-3xl p-8 relative shadow-2xl space-y-4">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <span id="modal-tag" class="text-[10px] font-bold uppercase tracking-widest text-amber-400 bg-amber-400/10 px-3 py-1 rounded-full inline-block">Category</span>
+            
+            <h3 id="modal-title" class="text-2xl font-bold text-white">Project Title</h3>
+            
+            <p id="modal-desc" class="text-gray-300 text-xs leading-relaxed">Detailed brief description will appear here...</p>
+            
+            <div class="bg-white/5 p-4 rounded-2xl space-y-2 text-xs border border-white/5">
+                <p><strong class="text-sky-400">Impact Metric:</strong> <span id="modal-impact" class="text-gray-300"></span></p>
+                <p><strong class="text-amber-400">Student Leads:</strong> <span id="modal-leads" class="text-gray-300"></span></p>
+                <p><strong class="text-indigo-400">Faculty Mentors:</strong> <span id="modal-mentors" class="text-gray-300"></span></p>
+            </div>
+
+            <div class="pt-2 flex justify-end">
+                <button onclick="closeModal()" class="bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold px-6 py-2.5 rounded-full transition-all">Close Brief</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-white/10 py-12 px-6 bg-slate-950 relative z-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-gray-500">
+            <p>© 2026 School for Life - UPES Dehradun. All rights reserved.</p>
+            <div class="flex gap-6">
+                <a href="#hero" class="smooth-scroll hover:text-white transition-colors">Back to Top</a>
+                <a href="https://www.upes.ac.in/privacy-policy" target="_blank" class="hover:text-white transition-colors">Privacy Policy</a>
+                <a href="https://www.upes.ac.in/contact-us" target="_blank" class="hover:text-white transition-colors">Contact UPES</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+        document.querySelectorAll('.smooth-scroll').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                gsap.to(window, {
+                    duration: 1.2,
+                    scrollTo: { y: targetId, offsetY: 70 },
+                    ease: "power3.inOut"
+                });
+            });
+        });
+
+        // Entrance Animations
+        gsap.from(".hero-text > *", { y: 40, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out" });
+        gsap.from(".hero-visual", { scale: 0.9, opacity: 0, duration: 1.2, delay: 0.3, ease: "power3.out" });
+
+        // Counter Animation
+        document.querySelectorAll('.counter').forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            gsap.to(counter, {
+                innerText: target,
+                duration: 2,
+                snap: { innerText: 1 },
+                scrollTrigger: { trigger: counter, start: "top 85%" }
+            });
+        });
+
+        // Filter Projects Script
+        function filterProjects(category) {
+            const cards = document.querySelectorAll('.project-card');
+            const btns = document.querySelectorAll('.project-btn');
+
+            btns.forEach(btn => btn.classList.remove('bg-amber-400', 'text-slate-950'));
+            event.target.classList.add('bg-amber-400', 'text-slate-950');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.classList.contains(category)) {
+                    gsap.to(card, { opacity: 1, scale: 1, duration: 0.4, display: 'flex' });
+                } else {
+                    gsap.to(card, { opacity: 0, scale: 0.9, duration: 0.4, display: 'none' });
+                }
+            });
+        }
+
+        // Project Brief Dynamic Modal Logic
+        function openModal(title, desc, category, impact, leads, mentors) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-desc').innerText = desc;
+            document.getElementById('modal-tag').innerText = category;
+            document.getElementById('modal-impact').innerText = impact;
+            document.getElementById('modal-leads').innerText = leads;
+            document.getElementById('modal-mentors').innerText = mentors;
+
+            const modal = document.getElementById('modal-overlay');
+            modal.classList.remove('hidden');
+            gsap.fromTo(modal.firstElementChild, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3 });
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal-overlay');
+            gsap.to(modal.firstElementChild, {
+                scale: 0.8, opacity: 0, duration: 0.2, onComplete: () => {
+                    modal.classList.add('hidden');
+                }
+            });
+        }
+
+        // Particle Background Canvas
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const particles = Array.from({ length: 45 }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2 + 0.5,
+            speedX: (Math.random() - 0.5) * 0.4,
+            speedY: (Math.random() - 0.5) * 0.4,
+            opacity: Math.random() * 0.5 + 0.2
+        }));
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x += p.speedX; p.y += p.speedY;
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+                ctx.fillStyle = `rgba(0, 163, 224, ${p.opacity})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+    </script>
+</body>
+</html>
